@@ -1,0 +1,33 @@
+<div class="todolist">
+  <div class="input-field">
+    <label for="input1">Due:</label>
+    <input type="text" id="input1">
+    <label for="input2">Task Description:</label>
+    <input type="text" id="input2">
+    <button type="submit">Add</button>
+  </div>
+  <div class="middle-content">
+    <button  class="btn btn-primary" type="submit">All</button>
+    <button  class="btn btn-primary" type="submit">Complete</button>
+    <button  class="btn btn-primary" type="submit">Incomplete</button>  
+  </div>
+  <div class="content">
+    <div class="table-body mt-5 ml-5">
+      <table class="table">
+        <tbody>
+          {{#each values as |value|}}
+
+            <tr>
+              <td>{{value.id}}</td>
+              <td>{{value.name}}</td>
+              <td>{{value.age}}</td>
+              <button type="button" class="btn btn-info" onclick={{action "updateBtn" value}}>UPDATE DATA</button>
+              <i class="fa-thin fa-trash-can" ></i>
+            </tr>
+
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

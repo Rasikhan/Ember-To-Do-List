@@ -1,0 +1,17 @@
+<div class="home">
+  <div class="content">
+    <h1>EMBER TO DO LIST</h1>
+
+    {{#link-to "posts"}}
+      <button class="btn btn-outline-success home-btn" type="submit">HOME</button>
+
+    {{/link-to}}
+
+    {{#link-to "main"}}
+      <button class="btn btn-outline-success home-btn" type="submit">Main</button>
+
+    {{/link-to}}
+
+  </div>
+</div>
+{{outlet}}

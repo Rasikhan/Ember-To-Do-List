@@ -618,6 +618,25 @@
   };
   _exports.default = _default;
 });
+;define("emb-app/models/data", ["exports", "ember-data"], function (_exports, _emberData) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+  const {
+    Model,
+    attr
+  } = _emberData.default;
+
+  var _default = Model.extend({
+    description: attr('string'),
+    date: attr('number')
+  });
+
+  _exports.default = _default;
+});
 ;define("emb-app/modifiers/on", ["exports", "ember-on-modifier/modifiers/on"], function (_exports, _on) {
   "use strict";
 
@@ -662,7 +681,7 @@
 
   _exports.default = _default;
 });
-;define("emb-app/pods/components/add-name-list/component", ["exports"], function (_exports) {
+;define("emb-app/pods/components/add-todo/component", ["exports"], function (_exports) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -671,15 +690,58 @@
   _exports.default = void 0;
 
   var _default = Ember.Component.extend({
+    values: null,
+    newdescription: "",
+    newdate: "",
+    store: Ember.inject.service(),
+
+    init() {
+      this._super(...arguments);
+
+      const values = [{
+        id: 1,
+        description: "Call",
+        date: 20 - 2 - 11
+      }, {
+        id: 2,
+        description: "george",
+        date: 25 - 2 - 33
+      }, {
+        id: 3,
+        description: "kumar",
+        date: 30 - 2 - 21
+      }];
+      this.set("values", values);
+    },
+
     actions: {
-      addBtn() {}
+      addbtn() {
+        let userData = this.store.createRecord("data", {
+          id: this.get("values").length + 1,
+          description: this.get("newdescription"),
+          date: this.get("newdate")
+        });
+        this.get("values").pushObject(userData);
+        this.set("newdescription", "");
+        this.set("newdate", "");
+        document.getElementById("input1").value = null;
+        document.getElementById("input2").value = null;
+      },
+
+      addDescription(e) {
+        this.set("newdescription", e.target.value);
+      },
+
+      addDate(e) {
+        this.set("newdate", e.target.value);
+      }
 
     }
   });
 
   _exports.default = _default;
 });
-;define("emb-app/pods/components/add-name-list/template", ["exports"], function (_exports) {
+;define("emb-app/pods/components/add-todo/template", ["exports"], function (_exports) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -688,16 +750,16 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "GIM6LUn7",
-    "block": "{\"symbols\":[\"value\"],\"statements\":[[7,\"div\"],[11,\"class\",\"todolist\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"input-field\"],[9],[0,\"\\n    \"],[7,\"label\"],[11,\"for\",\"input1\"],[9],[0,\"Due:\"],[10],[0,\"\\n    \"],[7,\"input\"],[11,\"id\",\"input1\"],[11,\"type\",\"text\"],[9],[10],[0,\"\\n    \"],[7,\"label\"],[11,\"for\",\"input2\"],[9],[0,\"Task Description:\"],[10],[0,\"\\n    \"],[7,\"input\"],[11,\"id\",\"input2\"],[11,\"type\",\"text\"],[9],[10],[0,\"\\n    \"],[7,\"button\"],[11,\"type\",\"submit\"],[9],[0,\"Add\"],[10],[0,\"\\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"middle-content\"],[9],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-primary\"],[11,\"type\",\"submit\"],[9],[0,\"All\"],[10],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-primary\"],[11,\"type\",\"submit\"],[9],[0,\"Complete\"],[10],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-primary\"],[11,\"type\",\"submit\"],[9],[0,\"Incomplete\"],[10],[0,\"  \\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"content\"],[9],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"table-body mt-5 ml-5\"],[9],[0,\"\\n      \"],[7,\"table\"],[11,\"class\",\"table\"],[9],[0,\"\\n        \"],[7,\"tbody\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"values\"]]],null,{\"statements\":[[0,\"\\n            \"],[7,\"tr\"],[9],[0,\"\\n              \"],[7,\"td\"],[9],[1,[22,1,[\"id\"]],false],[10],[0,\"\\n              \"],[7,\"td\"],[9],[1,[22,1,[\"name\"]],false],[10],[0,\"\\n              \"],[7,\"td\"],[9],[1,[22,1,[\"age\"]],false],[10],[0,\"\\n              \"],[7,\"button\"],[11,\"class\",\"btn btn-info\"],[12,\"onclick\",[27,\"action\",[[22,0,[]],\"updateBtn\",[22,1,[]]],null]],[11,\"type\",\"button\"],[9],[0,\"UPDATE DATA\"],[10],[0,\"\\n              \"],[7,\"i\"],[11,\"class\",\"fa-thin fa-trash-can\"],[9],[10],[0,\"\\n            \"],[10],[0,\"\\n\\n\"]],\"parameters\":[1]},null],[0,\"        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n    \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\"]],\"hasEval\":false}",
+    "id": "lpbUiwIJ",
+    "block": "{\"symbols\":[\"value\"],\"statements\":[[7,\"div\"],[11,\"class\",\"todolist\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"input-field\"],[9],[0,\"\\n    \"],[7,\"label\"],[11,\"for\",\"input1\"],[9],[0,\"Due:\"],[10],[0,\"\\n    \"],[7,\"input\"],[11,\"id\",\"input1\"],[12,\"oninput\",[27,\"action\",[[22,0,[]],\"addDate\"],null]],[11,\"type\",\"text\"],[9],[10],[0,\"\\n    \"],[7,\"label\"],[11,\"for\",\"input2\"],[9],[0,\"Task Description:\"],[10],[0,\"\\n    \"],[7,\"input\"],[11,\"id\",\"input2\"],[12,\"oninput\",[27,\"action\",[[22,0,[]],\"addDescription\"],null]],[11,\"type\",\"text\"],[9],[10],[0,\"\\n    \"],[7,\"button\"],[12,\"onclick\",[27,\"action\",[[22,0,[]],\"addbtn\"],null]],[11,\"type\",\"submit\"],[9],[0,\"Add\"],[10],[0,\"\\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"middle-content\"],[9],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-primary\"],[11,\"type\",\"submit\"],[9],[0,\"All\"],[10],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-primary\"],[11,\"type\",\"submit\"],[9],[0,\"Complete\"],[10],[0,\"\\n    \"],[7,\"button\"],[11,\"class\",\"btn btn-primary\"],[11,\"type\",\"submit\"],[9],[0,\"Incomplete\"],[10],[0,\"\\n  \"],[10],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"content\"],[9],[0,\"\\n      \"],[7,\"table\"],[11,\"class\",\"table table-bordered\"],[9],[0,\"\\n        \"],[7,\"tbody\"],[9],[0,\"\\n\"],[4,\"each\",[[23,[\"values\"]]],null,{\"statements\":[[0,\"\\n            \"],[7,\"tr\"],[9],[0,\"\\n              \"],[7,\"div\"],[11,\"class\",\"table-data\"],[9],[0,\"\\n                \"],[7,\"div\"],[11,\"class\",\"table-center\"],[9],[0,\"\\n                  \"],[7,\"td\"],[9],[7,\"input\"],[11,\"type\",\"checkbox\"],[9],[10],[10],[0,\"\\n                  \"],[7,\"td\"],[9],[1,[22,1,[\"id\"]],false],[0,\".\"],[1,[22,1,[\"description\"]],false],[10],[0,\"\\n                  \"],[7,\"td\"],[9],[0,\"Due:\"],[1,[22,1,[\"date\"]],false],[10],[0,\"\\n                \"],[10],[0,\"\\n                \"],[7,\"div\"],[11,\"class\",\"table-btn\"],[9],[0,\"\\n                  \"],[7,\"button\"],[11,\"class\",\"btn btn-info editBtn\"],[11,\"type\",\"button\"],[9],[0,\"Edit\"],[10],[0,\"\\n                \"],[10],[0,\"\\n                 \"],[7,\"div\"],[11,\"class\",\"table-btn\"],[9],[0,\"\\n                  \"],[7,\"button\"],[11,\"class\",\"btn btn-danger\"],[11,\"type\",\"button\"],[9],[0,\"Remove\"],[10],[0,\"\\n                \"],[10],[0,\"\\n              \"],[10],[0,\"\\n            \"],[10],[0,\"\\n\"]],\"parameters\":[1]},null],[0,\"        \"],[10],[0,\"\\n      \"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"],[10]],\"hasEval\":false}",
     "meta": {
-      "moduleName": "emb-app/pods/components/add-name-list/template.hbs"
+      "moduleName": "emb-app/pods/components/add-todo/template.hbs"
     }
   });
 
   _exports.default = _default;
 });
-;define("emb-app/pods/components/main-form/component", ["exports"], function (_exports) {
+;define("emb-app/pods/components/edit-todo/component", ["exports"], function (_exports) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -709,7 +771,7 @@
 
   _exports.default = _default;
 });
-;define("emb-app/pods/components/main-form/template", ["exports"], function (_exports) {
+;define("emb-app/pods/components/edit-todo/template", ["exports"], function (_exports) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -718,10 +780,10 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "LoiqLc5X",
-    "block": "{\"symbols\":[],\"statements\":[],\"hasEval\":false}",
+    "id": "K3qRreBt",
+    "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"class\",\"edit-todo\"],[9],[0,\"\\n    \"],[7,\"h1\"],[9],[0,\"Edit Task 5\"],[10],[0,\"\\n    \"],[7,\"div\"],[11,\"class\",\"todolist\"],[9],[0,\"\\n  \"],[7,\"div\"],[11,\"class\",\"input-field\"],[9],[0,\"\\n    \"],[7,\"label\"],[11,\"for\",\"input1\"],[9],[0,\"Due:\"],[10],[0,\"\\n    \"],[7,\"input\"],[11,\"id\",\"input1\"],[11,\"type\",\"text\"],[9],[10],[0,\"\\n    \"],[7,\"label\"],[11,\"for\",\"input2\"],[9],[0,\"Task Description:\"],[10],[0,\"\\n    \"],[7,\"input\"],[11,\"id\",\"input2\"],[11,\"type\",\"text\"],[9],[10],[0,\"\\n    \"],[7,\"button\"],[11,\"type\",\"submit\"],[9],[0,\"Save\"],[10],[0,\"\\n  \"],[10],[0,\"\\n\"],[10],[0,\"\\n\"],[10]],\"hasEval\":false}",
     "meta": {
-      "moduleName": "emb-app/pods/components/main-form/template.hbs"
+      "moduleName": "emb-app/pods/components/edit-todo/template.hbs"
     }
   });
 
@@ -778,8 +840,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "OIoI4UcB",
-    "block": "{\"symbols\":[],\"statements\":[[1,[21,\"add-name-list\"],false],[0,\"\\n\\n\"]],\"hasEval\":false}",
+    "id": "KGr2x1ti",
+    "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"class\",\"post\"],[9],[0,\"\\n\"],[1,[21,\"add-todo\"],false],[0,\"\\n\"],[1,[21,\"edit-todo\"],false],[0,\"\\n\"],[10],[0,\"\\n\\n\\n\"]],\"hasEval\":false}",
     "meta": {
       "moduleName": "emb-app/pods/posts/template.hbs"
     }
@@ -815,26 +877,6 @@
   var _default = Router;
   _exports.default = _default;
 });
-;define("emb-app/serializers/post", ["exports", "ember-data"], function (_exports, _emberData) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-
-  var _default = _emberData.default.RESTSerializer.extend({
-    normalizeFindAllResponse(store, primaryModelClass, payload) {
-      payload = {
-        posts: payload
-      };
-      return this._super(store, primaryModelClass, payload);
-    }
-
-  });
-
-  _exports.default = _default;
-});
 ;define("emb-app/services/ajax", ["exports", "ember-ajax/services/ajax"], function (_exports, _ajax) {
   "use strict";
 
@@ -848,20 +890,6 @@
     }
   });
 });
-;define("emb-app/services/name", ["exports"], function (_exports) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-
-  var _default = Ember.Service.extend({
-    name: Ember.inject.service()
-  });
-
-  _exports.default = _default;
-});
 ;define("emb-app/services/notifications", ["exports", "ember-cli-notifications/services/notifications"], function (_exports, _notifications) {
   "use strict";
 
@@ -874,6 +902,35 @@
       return _notifications.default;
     }
   });
+});
+;define("emb-app/services/todo", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.Service.extend({// const values = [
+    //     {
+    //       id: 1,
+    //       description: "Call",
+    //       date: 20 - 2 - 11,
+    //     },
+    //     {
+    //       id: 2,
+    //       description: "george",
+    //       date: 25 - 2 - 33,
+    //     },
+    //     {
+    //       id: 3,
+    //       description: "kumar",
+    //       date: 30 - 2 - 21,
+    //     },
+    //   ],
+  });
+
+  _exports.default = _default;
 });
 ;
 
@@ -898,7 +955,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("emb-app/app")["default"].create({"name":"emb-app","version":"0.0.0+99afbf9f"});
+            require("emb-app/app")["default"].create({"name":"emb-app","version":"0.0.0+088af5cf"});
           }
         
 //# sourceMappingURL=emb-app.map

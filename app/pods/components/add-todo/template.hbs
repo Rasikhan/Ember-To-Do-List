@@ -1,0 +1,38 @@
+<div class="todolist">
+  <div class="input-field">
+    <label for="input1">Due:</label>
+    <input type="text" id="input1" oninput={{action "addDate"}} />
+    <label for="input2">Task Description:</label>
+    <input type="text" id="input2" oninput={{action "addDescription"}} />
+    <button type="submit" onclick={{action "addbtn"}}>Add</button>
+  </div>
+  <div class="middle-content">
+    <button class="btn btn-primary" type="submit">All</button>
+    <button class="btn btn-primary" type="submit">Complete</button>
+    <button class="btn btn-primary" type="submit">Incomplete</button>
+  </div>
+  <div class="content">
+      <table class="table table-bordered">
+        <tbody>
+          {{#each values as |value|}}
+
+            <tr>
+              <div class="table-data">
+                <div class="table-center">
+                  <td><input type="checkbox"></td>
+                  <td>{{value.id}}.{{value.description}}</td>
+                  <td>Due:{{value.date}}</td>
+                </div>
+                <div class="table-btn">
+                  <button type="button" class="btn btn-info editBtn">Edit</button>
+                </div>
+                 <div class="table-btn">
+                  <button type="button" class="btn btn-danger">Remove</button>
+                </div>
+              </div>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+  </div>
+</div>

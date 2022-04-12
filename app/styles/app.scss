@@ -1,8 +1,10 @@
-
-
+// general
+.ember-view{
+    background: #eaeaea;
+}
 
 // generic components
-@import 'components/add-name-list.scss';
+@import 'components/add-todo.scss';
 // @import 'components/main-form.scss';
 
 //app 

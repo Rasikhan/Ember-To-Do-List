@@ -94328,8 +94328,7 @@ requireModule('ember')
   _exports.preventDefault = preventDefault;
   _exports.default = void 0;
 
-  function preventDefault(_ref) {
-    let [handler] = _ref;
+  function preventDefault([handler]) {
     (true && !(false) && Ember.deprecate('`(prevent-default)` has been moved to `ember-event-helpers`.', false, {
       id: 'ember-on-modifier.prevent-default',
       until: '1.0.0',
@@ -94397,11 +94396,7 @@ requireModule('ember')
     if (Array.isArray(params) && params.length > 0) {
       const _callback = callback;
 
-      callback = function () {
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
+      callback = function (...args) {
         return _callback.call(this, ...params, ...args);
       };
     }
@@ -94430,11 +94425,10 @@ requireModule('ember')
       };
     },
 
-    installModifier(state, element, _ref) {
-      let {
-        positional: [eventName, callback, ...params],
-        named: eventOptions
-      } = _ref;
+    installModifier(state, element, {
+      positional: [eventName, callback, ...params],
+      named: eventOptions
+    }) {
       state.callback = setupListener(element, eventName, callback, eventOptions, params);
       state.element = element;
       state.eventName = eventName;
@@ -94442,11 +94436,10 @@ requireModule('ember')
       state.eventOptions = eventOptions;
     },
 
-    updateModifier(state, _ref2) {
-      let {
-        positional: [eventName, callback, ...params],
-        named: eventOptions
-      } = _ref2;
+    updateModifier(state, {
+      positional: [eventName, callback, ...params],
+      named: eventOptions
+    }) {
       destroyListener(state.element, state.eventName, state.callback, state.eventOptions);
       state.callback = setupListener(state.element, eventName, callback, eventOptions, params);
       state.eventName = eventName;
@@ -94454,13 +94447,12 @@ requireModule('ember')
       state.eventOptions = eventOptions;
     },
 
-    destroyModifier(_ref3) {
-      let {
-        element,
-        eventName,
-        callback,
-        eventOptions
-      } = _ref3;
+    destroyModifier({
+      element,
+      eventName,
+      callback,
+      eventOptions
+    }) {
       destroyListener(element, eventName, callback, eventOptions);
     }
 
@@ -94530,9 +94522,7 @@ requireModule('ember')
 
   _exports.SUPPORTS_EVENT_OPTIONS = SUPPORTS_EVENT_OPTIONS;
 
-  function addEventListenerOnce(element, eventName, callback) {
-    let useCapture = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-
+  function addEventListenerOnce(element, eventName, callback, useCapture = false) {
     function listener() {
       element.removeEventListener(eventName, listener, useCapture);
       callback();

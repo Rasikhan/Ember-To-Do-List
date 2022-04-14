@@ -1,54 +1,54 @@
 import Component from "@ember/component";
-import {inject as service} from '@ember/service';
-
+import { inject as service } from "@ember/service";
 export default Component.extend({
-  values: null,
-  newdescription: "",
-  newdate: "",
+  newDue: "",
+  newDescription: "",
+  num: null,
+  task: service(),
   store: service(),
   init() {
     this._super(...arguments);
-
-    const values = [
+    const userData = [
       {
-        id: 1,
-        description: "Call",
-        date: 20 - 2 - 11,
+        due: "oct 22",
+        description: "call car insurance",
       },
       {
-        id: 2,
-        description: "george",
-        date: 25 - 2 - 33,
+        due: "oct 29",
+        description: "shopping",
       },
       {
-        id: 3,
-        description: "kumar",
-        date: 30 - 2 - 21,
+        due: "Today",
+        description: "Laundry",
       },
     ];
-    this.set("values", values);
+    this.set("userData", userData);
+    this.task.set("lists", userData);
   },
-
   actions: {
-    addbtn() {
-      let userData = this.store.createRecord("data", {
-        id: this.get("values").length + 1,
-        description: this.get("newdescription"),
-        date: this.get("newdate"),
+    addBtn() {
+      let newToDoList = this.store.createRecord("task", {
+        due: this.get("newDue"),
+        description: this.get("newDescription"),
       });
-      this.get("values").pushObject(userData);
+      this.get("userData").pushObject(newToDoList);
+      this.task.set("lists", this.userData);
       this.set("newdescription", "");
-      this.set("newdate", "");
-      document.getElementById("input1").value = null;
-      document.getElementById("input2").value = null;
+      this.set("newDue", "");
+      document.getElementById("dueAdd").value = null;
+      document.getElementById("descriptionAdd").value = null;
     },
 
-    addDescription(e) {
-      this.set("newdescription", e.target.value);
+    dueInputValue(e) {
+      this.set("newDue", e.target.value);
+    },
+    descriptionInputValue(e) {
+      this.set("newDescription", e.target.value);
     },
 
-    addDate(e) {
-      this.set("newdate", e.target.value);
+    removeBtn(value) {
+      const removeArr = this.userData.filter((user => user.description !== value))
+      this.set("userData", removeArr);
     },
   },
 });

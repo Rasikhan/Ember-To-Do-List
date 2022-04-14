@@ -7,7 +7,7 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('posts');
+  this.route('home');
   this.route('main');
 });
 

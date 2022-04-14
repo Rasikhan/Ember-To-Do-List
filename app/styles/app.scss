@@ -1,14 +1,99 @@
-// general
-.ember-view{
-    background: #eaeaea;
+//General
+.ember-view {
+    background: rgb(225, 223, 223);
+    background-size: cover;
 }
 
-// generic components
-@import 'components/add-todo.scss';
-// @import 'components/main-form.scss';
+//add-task
+.todo-list {
+    width: 95%;
+    height: 95%;
+    margin-left: 0.88cm;
+    text-align: center;
+    background-color: rgb(225, 223, 223);
 
-//app 
-@import 'routes/application.scss';
+    h1 {
+        margin-right: 16cm;
+    }
+}
 
+.user {
+    margin: 1cm;
+}
 
+//table
+.table-content {
+    margin-top: 1cm;
+    margin-left: 10cm;
 
+    div .list-group {
+        max-width: 650px;
+    }
+
+    div .list-group-item {
+        max-width: 500px;
+    }
+}
+
+//application
+.home {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+
+    .content {
+        width: 100vw;
+        border-radius: 1px;
+        text-align: center;
+
+        .home-btn {
+            left: 50%;
+        }
+    }
+}
+
+button {
+    border-radius: 0.3em;
+
+}
+
+.addTask {
+    margin-top: 1cm;
+}
+
+.editHead {
+    text-align: left;
+    margin-bottom: 1cm;
+
+}
+
+.edit {
+    margin-left: 3.5cm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img {
+    height: 200px;
+}
+
+.span1 {
+    border-top-left-radius: 0.3em;
+    border-bottom-left-radius: 0.3em;
+}
+
+.span2 {
+    border-top-right-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+}
+
+#editBtn {
+    margin-left: 1cm;
+}
+
+.taskList {
+    margin-top: 1cm;
+    text-align: left;
+    margin-left: 9.3cm;
+}
